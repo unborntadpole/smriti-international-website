@@ -1,0 +1,209 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <style>
+    body {
+      font-family: Arial;
+      padding: 20px;
+    }
+
+    h2 {
+      margin-top: 40px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background: #0a2540;
+      color: white;
+    }
+
+    a {
+      color: blue;
+    }
+  </style>
+</head>
+<body>
+
+<h1>📊 Admin Dashboard</h1>
+
+<h2>Job Applications</h2>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Phone</th>
+    <th>Role</th>
+    <th>Resume</th>
+  </tr>
+
+  {% for job in jobs %}
+  <tr>
+    <td>{{ job.name }}</td>
+    <td>{{ job.email }}</td>
+    <td>{{ job.phone }}</td>
+    <td>{{ job.role }}</td>
+    <td>
+      <a href="/{{ job.resume_path }}" target="_blank">Download</a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+
+<h2>Recruiter Requests</h2>
+<table>
+  <tr>
+    <th>Company</th>
+    <th>Contact</th>
+    <th>Email</th>
+    <th>Phone</th>
+    <th>Requirement</th>
+  </tr>
+
+  {% for r in recruiters %}
+  <tr>
+    <td>{{ r.company_name }}</td>
+    <td>{{ r.contact_person }}</td>
+    <td>{{ r.email }}</td>
+    <td>{{ r.phone }}</td>
+    <td>{{ r.requirement }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <style>
+    body {
+      font-family: Arial;
+      padding: 20px;
+    }
+
+    h2 {
+      margin-top: 40px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background: #0a2540;
+      color: white;
+    }
+
+    a {
+      color: blue;
+    }
+  </style>
+</head>
+<body>
+
+<h1>📊 Admin Dashboard</h1>
+
+<h2>Job Applications</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Role</th>
+      <th>Resume</th>
+    </tr>
+  </thead>
+  <tbody id="jobs-table"></tbody>
+</table>
+
+
+<h2>Recruiter Requests</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Company</th>
+      <th>Contact</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Requirement</th>
+    </tr>
+  </thead>
+  <tbody id="recruiters-table"></tbody>
+</table>
+
+
+<script>
+async function loadDashboard() {
+  try {
+    const res = await fetch("/api/dashboard");
+    const data = await res.json();
+
+    const jobsTable = document.getElementById("jobs-table");
+    const recruitersTable = document.getElementById("recruiters-table");
+
+    // Populate jobs
+    data.jobs.forEach(job => {
+      const row = `
+        <tr>
+          <td>${job.name || ""}</td>
+          <td>${job.email || ""}</td>
+          <td>${job.phone || ""}</td>
+          <td>${job.role || ""}</td>
+          <td>
+            <a href="/${job.resume_path}" target="_blank">Download</a>
+          </td>
+        </tr>
+      `;
+      jobsTable.innerHTML += row;
+    });
+
+    // Populate recruiters
+    data.recruiters.forEach(r => {
+      const row = `
+        <tr>
+          <td>${r.company_name || ""}</td>
+          <td>${r.contact_person || ""}</td>
+          <td>${r.email || ""}</td>
+          <td>${r.phone || ""}</td>
+          <td>${r.requirement || ""}</td>
+        </tr>
+      `;
+      recruitersTable.innerHTML += row;
+    });
+
+  } catch (err) {
+    console.error("Failed to load dashboard:", err);
+  }
+}
+
+loadDashboard();
+</script>
+
+</body>
+</html>

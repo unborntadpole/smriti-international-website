@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Find Jobs - Smriti International</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header id="navbar">
+  <div class="nav-container">
+    <div class="logo">Smriti International</div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="contact-page">
+  <div class="contact-container">
+    <h2>Apply for Jobs</h2>
+    <p class="section-subtitle">
+      Fill in your details and we will connect you with job opportunities
+    </p>
+    <form class="contact-form" id="jobForm" enctype="multipart/form-data">
+      <input type="text" id="name" placeholder="Full Name" required>
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="text" id="phone" placeholder="Phone Number" required>
+      <input type="text" id="role" placeholder="Preferred Job Role">
+      <div class="form-resume-upload">
+        <label>Resume:</label>
+        <input type="file" id="resume" accept=".pdf,.doc,.docx" required>
+      </div>
+      <textarea id="message" placeholder="Your Skills / Experience" rows="5"></textarea>
+      <button type="submit">Apply Now</button>
+    </form>
+  </div>
+</section>
+
+</body>
+<script src="js/script.js"></script>
+</html>
